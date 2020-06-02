@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const request = require('request')
+const https = require('https')
 
 const app = express()
 
@@ -10,6 +11,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/signup.html');
 });
+
+app.post('/', function (req, res) {
+  console.log(req.body.firstName, req.body.lastName, req.body.emailAdd)
+  const firstName = req.body.firstName
+  const lastName = req.body.lastName
+  const emailAdd = req.body.emailAdd
+
+  res.write(`first name is ${firstName}`);
+  res.write(`last name is ${lastName}`);
+  res.write(`email address is ${emailAdd}`);
+  res.send()
+})
+
 
 app.listen(3000, function () {
   console.log('server 3000 listening port is running');

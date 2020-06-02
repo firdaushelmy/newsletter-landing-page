@@ -13,15 +13,37 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-  console.log(req.body.firstName, req.body.lastName, req.body.emailAdd)
   const firstName = req.body.firstName
   const lastName = req.body.lastName
   const emailAdd = req.body.emailAdd
 
-  res.write(`first name is ${firstName}`);
-  res.write(`last name is ${lastName}`);
-  res.write(`email address is ${emailAdd}`);
-  res.send()
+  var data = {
+    members: [
+      {
+        email_address: emailAdd,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: firstName,
+          LNAME: lastName,
+        }
+      }
+    ]
+  };
+
+  const jsonData = JSON.stringify(data);
+  url = `https://us${SERVER_NUMBER}.api.mailchimp.com/3.0/lists/${AUDIENCE_LIST_ID}`;
+  const options = {
+    method: 'POST',
+    auth: `firdausTest:${API_KEY}`
+  }
+
+  const request = https.request(url, options, function (response) {
+    response.on('data', function (data) {
+      console.log(JSON.parse(data));
+    })
+  })
+  request.write(jsonData);
+  request.end();
 })
 
 

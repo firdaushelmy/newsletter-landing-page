@@ -9,6 +9,11 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
 
+const port = process.env.PORT || 3000
+app.listen(port, function () {
+  console.log(`starting server at ${port}`);
+});
+
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/signup.html');
 });
@@ -61,7 +66,3 @@ app.post('/', function (req, res) {
 app.post('/failure', function (req, res) {
   res.redirect('/')
 })
-
-app.listen(process.env.PORT, function () {
-  console.log(`listening port ${process.env.PORT} is running`);
-});

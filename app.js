@@ -61,3 +61,7 @@ app.post('/', function (req, res) {
 app.post('/failure', function (req, res) {
   res.redirect('/')
 })
+
+app.listen(process.env.PORT, function () {
+  console.log(`listening port ${process.env.PORT} is running`);
+});

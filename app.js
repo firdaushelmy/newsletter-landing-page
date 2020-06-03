@@ -49,9 +49,10 @@ app.post('/', function (req, res) {
       res.sendFile(__dirname + '/failure.html');
     }
 
-    response.on('data', function (data) {
-      console.log(JSON.parse(data));
-    });
+    // code to check if json parse status on terminal
+    // response.on('data', function (data) {
+    //   console.log(JSON.parse(data));
+    // });
   });
   request.write(jsonData);
   request.end();
@@ -61,6 +62,6 @@ app.post('/failure', function (req, res) {
   res.redirect('/')
 })
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('server 3000 listening port is running');
 });

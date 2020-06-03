@@ -42,6 +42,13 @@ app.post('/', function (req, res) {
   }
 
   const request = https.request(url, options, function (response) {
+    // success or failure
+    if (response.statusCode === 200) {
+      res.send('Registration Successful');
+    } else {
+      res.send('error ' + response.statusCode + '<p>Something Went Wrong, please try again');
+    }
+
     response.on('data', function (data) {
       console.log(JSON.parse(data));
     });
